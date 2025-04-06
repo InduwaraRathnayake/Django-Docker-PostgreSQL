@@ -1,3 +1,6 @@
+-- Connect to the database
+\c initial_db;
+
 -- create a table for user information
 CREATE TABLE users (
   id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
