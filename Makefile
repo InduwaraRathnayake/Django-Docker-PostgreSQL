@@ -31,3 +31,42 @@ clean:
 # Restart containers
 restart:
 	cd postgres && docker-compose restart
+
+# Django Commands
+run-server:
+	cd django/mainProject && \
+	echo "Starting Django server..." && \
+	echo "Create migrations" && \
+	python manage.py makemigrations userApp && \
+	echo "==========================" && \
+	echo "Migrate" && \
+	python manage.py migrate && \
+	echo "==========================" && \
+	echo "Run server" && \
+	python manage.py runserver 0.0.0.0:8000
+
+shell:
+	cd django/mainProject && python manage.py shell
+
+test:
+	cd django/mainProject && python manage.py test userApp
+
+clear-migrations:
+	@echo "WARNING: This will delete all migrations (except __init__.py)!" && \
+	read -p "Are you sure? (y/N): " confirm && \
+	if [ "$$confirm" = "y" ]; then \
+		cd django/mainProject && \
+		echo "Clearing migrations..." && \
+		find . -path "*/migrations/*.py" -not -name "__init__.py" -delete && \
+		find . -path "*/migrations/*.pyc"  -delete && \
+		echo "==========================" && \
+		echo "Create migrations" && \
+		python manage.py makemigrations userApp && \
+		echo "==========================" && \
+		echo "Migrate" && \
+		python manage.py migrate; \
+	else \
+		echo "Aborted."; \
+	fi
+
+
