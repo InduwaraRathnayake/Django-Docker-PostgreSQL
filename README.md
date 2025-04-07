@@ -116,6 +116,9 @@ make restart
 # Run Django development server
 make run-server
 
+# When syncing with an existing DB to avoid duplication
+make run-server-fake 
+
 # Open Django shell
 make shell
 

@@ -69,4 +69,16 @@ clear-migrations:
 		echo "Aborted."; \
 	fi
 
+run-server-fake:
+	cd django/mainProject && \
+	echo "Starting Django server..." && \
+	echo "Create migrations" && \
+	python manage.py makemigrations userApp && \
+	echo "==========================" && \
+	echo "Migrate with fake-initial" && \
+	python manage.py migrate --fake-initial && \
+	echo "==========================" && \
+	echo "Run server" && \
+	python manage.py runserver 0.0.0.0:8000
+
 
